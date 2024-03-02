@@ -47,9 +47,9 @@ def predict():
 
     # return jsonify({'prediction': prediction.tolist()})
     if prediction == 0:
-            pred = "Not Exited"
+            pred = "Prediction: Will Not Exit"
     else:
-            pred = "Exited"
+            pred = "Prediction: Will Exit"
 
     return render_template("index.html", pred=pred)
 

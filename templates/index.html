@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Model Interface</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Model Interface</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            align-items: center;
+            background-color: aqua;
         }
         form {
-            margin: 20px;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 300px;
+            display: inline-block;
+            background-color: whitesmoke;
+            align-items: center;
         }
         input[type="text"], input[type="number"], select {
             width: calc(100% - 22px); /* Adjusted width */
@@ -41,35 +46,43 @@
             border-radius: 5px;
             width: 300px;
         }
+        h1{
+            color: blue;
+            text-align: center;
+        }
+        .form1 {
+            margin: 0 auto; /* Center the div horizontally */
+            width: 300px; /* Adjust width if needed */
+        }
     </style>
     
 </head>
 <body>
 
-<h2>ML Model Interface</h2>
-
+<h1>Bank Churn Prediction</h1>
+<div class="form1">
 <form id="predictionResult" action='/predict' method="post" class="col s12">
     <label for="surname">CustomerId:</label>
     <input type="number" id="Surname" name="Surname" placeholder="Enter your Surname" required>
-    <br>
+    <!-- <br> -->
     <label for="surname">Surname:</label>
     <input type="text" id="Surname" name="Surname" placeholder="Enter your Surname" required>
-    <br>
+    <!-- <br> -->
     <label for="CreditScore">CreditScore:</label>
     <input type="number" id="CreditScore" name="CreditScore" placeholder="Enter your CreditScore" required>
-    <br>
+    <!-- <br> -->
     <label for="age">Age:</label>
     <input type="number" id="Age" name="Age" placeholder="Enter your Age" required>
-    <br>
+    <!-- <br> -->
     <label for="tenure">Tenure:</label>
     <input type="number" id="Tenure" name="Tenure" placeholder="Enter your Tenure" required>
-    <br>
+    <!-- <br> -->
     <label for="Balance">Balance:</label>
     <input type="number" id="Balance" name="Balance" placeholder="Enter your Balance" required>
-    <br>
+    <!-- <br> -->
     <label for="NumOfProducts">NumOfProducts:</label>
     <input type="number" id="number" name="number" placeholder="Enter NumOfProducts" required>
-    <br>
+    <!-- <br> -->
     <label for="HasCrCard">HasCrCard:</label>
     <select id="HasCrCard" name="HasCrCard">
         <option value="1">Yes</option>
@@ -82,10 +95,10 @@
     </select>
     <label for="EstimatedSalary">EstimatedSalary:</label>
     <input type="number" id="EstimatedSalary" name="EstimatedSalary" placeholder="Enter EstimatedSalary" required>
-    <br>
+    <!-- <br> -->
     <label for="Geography">Geography:</label>
     <input type="text" id="Geography" name="Geography" placeholder="Enter Geography" required>
-    <br>
+    <!-- <br> -->
     <label for="algorithm">Select Gender:</label>
     <select id="Gender" name="Gender">
         <option value="1">Male</option>
@@ -104,27 +117,12 @@
     <br>
     <input type="submit" value="Predict">
 </form>
+</div>
 
 <div id="predictionResult" class="result" style="display: none;"></div>
-<div>{{pred}}</div>
+<div class="pred">{{pred}}</div>
 
-<script>
-    document.getElementById('predictionForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        var form = this;
-        var data = new FormData(form);
-        fetch('/predict', {
-            method: 'POST',
-            body: data
-        })
-        .then(response => response.text())
-        .then(result => {
-            document.getElementById('predictionResult').innerHTML = result;
-            document.getElementById('predictionResult').style.display = 'block';
-            form.reset();
-        });
-    });
-</script>
+
 
 </body>
 </html>
