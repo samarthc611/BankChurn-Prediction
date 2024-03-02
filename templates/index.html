@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: calc(100% - 22px); /* Adjusted width */
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+    </style>
+    
+</head>
+<body>
+
+<h2>ML Model Interface</h2>
+
+<form id="predictionResult" action='/predict' method="post" class="col s12">
+    <label for="surname">CustomerId:</label>
+    <input type="number" id="Surname" name="Surname" placeholder="Enter your Surname" required>
+    <br>
+    <label for="surname">Surname:</label>
+    <input type="text" id="Surname" name="Surname" placeholder="Enter your Surname" required>
+    <br>
+    <label for="CreditScore">CreditScore:</label>
+    <input type="number" id="CreditScore" name="CreditScore" placeholder="Enter your CreditScore" required>
+    <br>
+    <label for="Geography">Geography:</label>
+    <input type="text" id="Geography" name="Geography" placeholder="Enter Geography" required>
+    <br>
+    <label for="algorithm">Select Gender:</label>
+    <select id="Gender" name="Gender">
+        <option value="1">Male</option>
+        <option value="0">Female</option>
+    </select>
+    <label for="age">Age:</label>
+    <input type="number" id="Age" name="Age" placeholder="Enter your Age" required>
+    <br>
+    <label for="tenure">Tenure:</label>
+    <input type="number" id="Tenure" name="Tenure" placeholder="Enter your Tenure" required>
+    <br>
+    <label for="Balance">Balance:</label>
+    <input type="number" id="Balance" name="Balance" placeholder="Enter your Balance" required>
+    <br>
+    <label for="NumOfProducts">NumOfProducts:</label>
+    <input type="number" id="number" name="number" placeholder="Enter NumOfProducts" required>
+    <br>
+    <label for="HasCrCard">HasCrCard:</label>
+    <select id="HasCrCard" name="HasCrCard">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+    </select>
+    <label for="IsActiveMember">IsActiveMember:</label>
+    <select id="IsActiveMember" name="IsActiveMember">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+    </select>
+    <br>
+    <label for="EstimatedSalary">EstimatedSalary:</label>
+    <input type="number" id="EstimatedSalary" name="EstimatedSalary" placeholder="Enter EstimatedSalary" required>
+    <br>
+    
+    <label for="algorithm">Select algorithm:</label>
+    <select id="algorithm" name="algorithm">
+        <option value="knn">KNN</option>
+        <option value="svm">SVM</option>
+        <option value="random_forest">Random Forest</option>
+    </select>
+    <br>
+    <input type="submit" value="Predict">
+</form>
+
+<div id="predictionResult" class="result" style="display: none;"></div>
+
+<script>
+    document.getElementById('predictionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var form = this;
+        var data = new FormData(form);
+        fetch('/predict', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('predictionResult').innerHTML = result;
+            document.getElementById('predictionResult').style.display = 'block';
+            form.reset();
+        });
+    });
+</script>
+
+</body>
+</html>
