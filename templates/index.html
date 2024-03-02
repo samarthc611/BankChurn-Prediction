@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ML Model Interface</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Interface</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            background-color: aqua;
+            height: 100vh;
+            margin: 0;
+            background-color: cyan;
+        }
+        h1 {
+            margin-top: 20px;
+            color: blue;
         }
         form {
-            margin: 20px auto;
+            margin-top: 20px;
             padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 300px;
-            display: inline-block;
-            background-color: whitesmoke;
-            align-items: center;
+            border-radius: 15px;
+            width: 400px;
+            background-color: #c1ffff;
+
         }
-        input[type="text"], input[type="number"], select {
-            width: calc(100% - 22px); /* Adjusted width */
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label, .form-group input, .form-group select {
+            width: 48%;
         }
         input[type="submit"] {
             background-color: #4CAF50;
@@ -35,94 +43,92 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-        .result {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 300px;
-        }
-        h1{
-            color: blue;
+        .pred {
             text-align: center;
         }
-        .form1 {
-            margin: 0 auto; /* Center the div horizontally */
-            width: 300px; /* Adjust width if needed */
-        }
     </style>
-    
 </head>
 <body>
-
 <h1>Bank Churn Prediction</h1>
-<div class="form1">
-<form id="predictionResult" action='/predict' method="post" class="col s12">
-    <label for="surname">CustomerId:</label>
-    <input type="number" id="Surname" name="Surname" placeholder="Enter your Surname" required>
-    <!-- <br> -->
-    <label for="surname">Surname:</label>
-    <input type="text" id="Surname" name="Surname" placeholder="Enter your Surname" required>
-    <!-- <br> -->
-    <label for="CreditScore">CreditScore:</label>
-    <input type="number" id="CreditScore" name="CreditScore" placeholder="Enter your CreditScore" required>
-    <!-- <br> -->
-    <label for="age">Age:</label>
-    <input type="number" id="Age" name="Age" placeholder="Enter your Age" required>
-    <!-- <br> -->
-    <label for="tenure">Tenure:</label>
-    <input type="number" id="Tenure" name="Tenure" placeholder="Enter your Tenure" required>
-    <!-- <br> -->
-    <label for="Balance">Balance:</label>
-    <input type="number" id="Balance" name="Balance" placeholder="Enter your Balance" required>
-    <!-- <br> -->
-    <label for="NumOfProducts">NumOfProducts:</label>
-    <input type="number" id="number" name="number" placeholder="Enter NumOfProducts" required>
-    <!-- <br> -->
-    <label for="HasCrCard">HasCrCard:</label>
-    <select id="HasCrCard" name="HasCrCard">
-        <option value="1">Yes</option>
-        <option value="0">No</option>
-    </select>
-    <label for="IsActiveMember">IsActiveMember:</label>
-    <select id="IsActiveMember" name="IsActiveMember">
-        <option value="1">Yes</option>
-        <option value="0">No</option>
-    </select>
-    <label for="EstimatedSalary">EstimatedSalary:</label>
-    <input type="number" id="EstimatedSalary" name="EstimatedSalary" placeholder="Enter EstimatedSalary" required>
-    <!-- <br> -->
-    <label for="Geography">Geography:</label>
-    <input type="text" id="Geography" name="Geography" placeholder="Enter Geography" required>
-    <!-- <br> -->
-    <label for="algorithm">Select Gender:</label>
-    <select id="Gender" name="Gender">
-        <option value="1">Male</option>
-        <option value="0">Female</option>
-    </select>
-    <br>
-    
-    <label for="algorithm">Select algorithm:</label>
-    <select id="algorithm" name="algorithm">
-        <option value="1">KNN</option>
-        <option value="2">Logistic Regression</option>
-        <option value="3">Support Vector mechine classifier (SVC)</option>
-        <option value="4">Decession Tree Classifier</option>
-        <option value="5">Random Forest Classifier</option>
-    </select>
-    <br>
+<form id="predictionResult" action='/predict' method="post">
+    <div class="form-group">
+        <label for="CustomerId">CustomerId:</label>
+        <input type="number" id="CustomerId" name="CustomerId" placeholder="Enter CustomerId" required>
+    </div>
+    <div class="form-group">
+        <label for="Surname">Surname:</label>
+        <input type="text" id="Surname" name="Surname" placeholder="Enter Surname" required>
+    </div>
+    <div class="form-group">
+        <label for="CreditScore">CreditScore:</label>
+        <input type="number" id="CreditScore" name="CreditScore" placeholder="Enter CreditScore" required>
+    </div>
+    <div class="form-group">
+        <label for="Age">Age:</label>
+        <input type="number" id="Age" name="Age" placeholder="Enter Age" required>
+    </div>
+    <div class="form-group">
+        <label for="Tenure">Tenure:</label>
+        <input type="number" id="Tenure" name="Tenure" placeholder="Enter Tenure" required>
+    </div>
+    <div class="form-group">
+        <label for="Balance">Balance:</label>
+        <input type="number" id="Balance" name="Balance" placeholder="Enter Balance" required>
+    </div>
+    <div class="form-group">
+        <label for="NumOfProducts">NumOfProducts:</label>
+        <input type="number" id="NumOfProducts" name="NumOfProducts" placeholder="Enter NumOfProducts" required>
+    </div>
+    <div class="form-group">
+        <label for="HasCrCard">HasCrCard:</label>
+        <select id="HasCrCard" name="HasCrCard">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="IsActiveMember">IsActiveMember:</label>
+        <select id="IsActiveMember" name="IsActiveMember">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="EstimatedSalary">EstimatedSalary:</label>
+        <input type="number" id="EstimatedSalary" name="EstimatedSalary" placeholder="Enter EstimatedSalary" required>
+    </div>
+    <div class="form-group">
+        <label for="Geography">Geography:</label>
+        <input type="text" id="Geography" name="Geography" placeholder="Enter Geography" required>
+    </div>
+    <div class="form-group">
+        <label for="Gender">Gender:</label>
+        <select id="Gender" name="Gender">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="algorithm">Select algorithm:</label>
+        <select id="algorithm" name="algorithm">
+            <option value="1">KNN</option>
+            <option value="2">Logistic Regression</option>
+            <option value="3">Support Vector mechine classifier (SVC)</option>
+            <option value="4">Decession Tree Classifier</option>
+            <option value="5">Random Forest Classifier</option>
+        </select>
+    </div>
     <input type="submit" value="Predict">
 </form>
-</div>
-
+<br>
 <div id="predictionResult" class="result" style="display: none;"></div>
+<br>
 <div class="pred">{{pred}}</div>
-
-
 
 </body>
 </html>
