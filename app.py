@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import pickle
 import numpy as np
+from flask import jsonify
 
 app = Flask(__name__, template_folder="templates")
 
@@ -21,11 +22,38 @@ def predict():
         except ValueError:
             pass
 
+    
+    if int_features[-1] == 1:
+        algo = 'Knn'
+    if int_features[-1] == 2:
+        algo = 'LR'
+    if int_features[-1] == 3:
+        algo = 'svc'
+    if int_features[-1] == 4:
+        algo = 'DTC'
+    if int_features[-1] == 5:
+        algo = 'rfc'
+    
+    int_features.pop(10)
+
+
+    int_features.insert(10, int_features.pop(9))
+    int_features.insert(9, 1)
     final = [np.array(int_features)]
     print(int_features)
     print(final)
-    prediction = loaded_models['LR'].predict(final)
+    prediction = loaded_models[algo].predict(final)
     print(prediction)
+
+    # return jsonify({'prediction': prediction.tolist()})
+    if prediction == 0:
+            pred = "Not Exited"
+    else:
+            pred = "Exited"
+
+    return render_template("index.html", pred=pred)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

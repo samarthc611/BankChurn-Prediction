@@ -95,15 +95,18 @@
     
     <label for="algorithm">Select algorithm:</label>
     <select id="algorithm" name="algorithm">
-        <option value="knn">KNN</option>
-        <option value="svm">SVM</option>
-        <option value="random_forest">Random Forest</option>
+        <option value="1">KNN</option>
+        <option value="2">Logistic Regression</option>
+        <option value="3">Support Vector mechine classifier (SVC)</option>
+        <option value="4">Decession Tree Classifier</option>
+        <option value="5">Random Forest Classifier</option>
     </select>
     <br>
     <input type="submit" value="Predict">
 </form>
 
 <div id="predictionResult" class="result" style="display: none;"></div>
+<div>{{pred}}</div>
 
 <script>
     document.getElementById('predictionForm').addEventListener('submit', function(event) {

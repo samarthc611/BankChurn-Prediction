@@ -195,7 +195,7 @@ df
 # In[183]:
 
 
-X = df.drop(columns=['RowNumber', 'CustomerId', 'Surname','Exited'], axis = 1)
+X = df.drop(columns=['RowNumber', 'Surname','Exited'], axis = 1)
 # X = df.drop(columns=['RowNumber', 'CustomerId', 'Surname','Geography','Gender','Exited','Age Group'], axis = 1)
 # X.head(5)
 Y = df["Exited"]
@@ -421,7 +421,7 @@ with open('model.pkl', 'rb') as file:
 logistic_regression_model = loaded_models['LR']
 random_forest_model = loaded_models['rfc']
 svm_model = loaded_models['svc']
-K_Nearest = loaded_models['knn']
+K_Nearest = loaded_models['Knn']
 Decision_tree = loaded_models['DTC']
 
 
