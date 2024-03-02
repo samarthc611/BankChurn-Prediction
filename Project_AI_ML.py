@@ -327,14 +327,14 @@ predict = knn.predict(X_test_scaled)
 # In[199]:
 
 
-LR = LogisticRegression()
-LR.fit(X_train_scaled, y_train)
+Log_reg = LogisticRegression()
+Log_reg.fit(X_train_scaled, y_train)
 
 
 # In[200]:
 
 
-predict = LR.predict(X_test_scaled)
+predict = Log_reg.predict(X_test_scaled)
 
 print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
 print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
@@ -365,14 +365,14 @@ print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 # In[203]:
 
 
-DTC = DecisionTreeClassifier()
-DTC.fit(X_train_scaled, y_train)
+dtc = DecisionTreeClassifier()
+dtc.fit(X_train_scaled, y_train)
 
 
 # In[204]:
 
 
-predict = DTC.predict(X_test_scaled)
+predict = dtc.predict(X_test_scaled)
 
 print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
 print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
@@ -398,19 +398,31 @@ print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
 print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
-# In[ ]:
+import pickle
 
+# Suppose you have multiple models
+models = {
+    'Knn': knn,
+    'LR': Log_reg,
+    'svc': svc,
+    'DTC':dtc,
+    'rfc':rfc
+}
 
+# Dump the dictionary containing all models
+with open('model.pkl', 'wb') as file:
+    pickle.dump(models, file)
 
+# Load the models from the file
+with open('model.pkl', 'rb') as file:
+    loaded_models = pickle.load(file)
 
-
-# In[207]:
-
-
-# Remaning part is using neural network
-
-
-# In[ ]:
+# Access each model by its key
+logistic_regression_model = loaded_models['LR']
+random_forest_model = loaded_models['rfc']
+svm_model = loaded_models['svc']
+K_Nearest = loaded_models['knn']
+Decision_tree = loaded_models['DTC']
 
 
 

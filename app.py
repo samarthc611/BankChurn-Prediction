@@ -24,7 +24,7 @@ def predict():
     final = [np.array(int_features)]
     print(int_features)
     print(final)
-    prediction = loaded_models['Knn'].predict(final)
+    prediction = loaded_models['LR'].predict(final)
     print(prediction)
 
 if __name__ == '__main__':
