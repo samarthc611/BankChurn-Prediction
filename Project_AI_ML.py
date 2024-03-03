@@ -170,15 +170,6 @@ df = pd.read_csv('./churn.csv', delimiter=',')
 
 # ## Feature Engineering 
 
-# In[181]:
-
-
-# len(df.columns)
-
-
-# In[182]:
-
-
 label_encoder_geo = LabelEncoder()
 
 # Encode the "Geography" column
@@ -192,58 +183,20 @@ df.drop(columns=['Gender'], inplace=True)
 df
 
 
-# In[183]:
-
-
 X = df.drop(columns=['RowNumber', 'Surname','Exited'], axis = 1)
 # X = df.drop(columns=['RowNumber', 'CustomerId', 'Surname','Geography','Gender','Exited','Age Group'], axis = 1)
 # X.head(5)
 Y = df["Exited"]
 
-
-# In[184]:
-
-
 X = X.to_numpy()
-X
-
-
-# In[185]:
-
 
 Y = Y.to_numpy()
-Y
-
-
-# In[186]:
-
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
-
-
-# In[187]:
-
-
-X_train
-
-
-# In[188]:
-
-
-X_train[0]
-
-
-# In[189]:
-
 
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
-
-
-# .
-
-# In[ ]:
 
 
 
@@ -251,151 +204,47 @@ X_test_scaled = scaler.transform(X_test)
 
 # ## K nearest Classifier
 
-# In[190]:
 
 
-knn = KNeighborsClassifier(n_neighbors=7)
 
 
-# In[191]:
 
 
-knn.fit(X_train_scaled, y_train)
 
 
-# In[192]:
 
 
-y_pred = knn.predict(X_test_scaled)
 
-
-# In[193]:
-
-
-accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
-
-
-# In[194]:
-
-
-error_rate = []
-for i in range(1, 20):
-    knn = KNeighborsClassifier(n_neighbors=i)
-    knn.fit(X_train_scaled, y_train)
-    pred_i = knn.predict(X_test_scaled)
-    error_rate.append(np.mean(y_test != pred_i))
-
-
-# In[195]:
-
-
-# plt.figure(figsize=(15,6))
-# plt.plot(np.arange(1,20), error_rate, color='blue', linestyle='dashed', marker='o',
-#          markerfacecolor='red', markersize=10)
-# plt.title('Error Rate vs. K Value')
-# plt.xticks(np.arange(0, 20, 1.0))
-# plt.xlabel('K')
-# plt.ylabel('Error Rate')
-
-
-# In[196]:
-
-
-# We concludede that from error rate that using arm method that 2 is point where maximum error
-
-
-# In[197]:
-
-
-knn = KNeighborsClassifier(n_neighbors=2)
-knn.fit(X_train_scaled, y_train)
-
-
-# In[198]:
-
-
-predict = knn.predict(X_test_scaled)
-
-# print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
-# print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
-# print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 # ## Logistic Regression
 
-# In[199]:
 
 
-Log_reg = LogisticRegression()
-Log_reg.fit(X_train_scaled, y_train)
 
 
-# In[200]:
-
-
-predict = Log_reg.predict(X_test_scaled)
-
-print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
-print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
-print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 # ## Support Vector mechine classifier (SVC)
 
-# In[201]:
 
 
-svc = SVC()
-svc.fit(X_train_scaled, y_train)
 
-
-# In[202]:
-
-
-predict = svc.predict(X_test_scaled)
-
-print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
-print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
-print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 # ## Decession Tree Classifier 
 
-# In[203]:
 
 
-dtc = DecisionTreeClassifier()
-dtc.fit(X_train_scaled, y_train)
 
 
-# In[204]:
 
-
-predict = dtc.predict(X_test_scaled)
-
-print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
-print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
-print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 # ## Random Forest Classifier
 
-# In[205]:
 
 
-rfc = RandomForestClassifier(n_estimators=250)
-rfc.fit(X_train_scaled, y_train)
-
-
-# In[206]:
-
-
-predict = rfc.predict(X_test_scaled)
-
-print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
-print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
-print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 import pickle
@@ -428,7 +277,6 @@ Decision_tree = loaded_models['DTC']
 
 
 
-# In[ ]:
 
 
 
