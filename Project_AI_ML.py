@@ -219,10 +219,24 @@ X_test_scaled = scaler.transform(X_test)
 
 # ## Logistic Regression
 
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
+#split the data into testing and training sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
 
+#inbuilt function to train logistic regression model
+model=LogisticRegression()
+model.fit(X_train, y_train)
 
-
+#accuracy 
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy: {:.2f}%".format(accuracy * 100))
+#classification report
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 
 # ## Support Vector mechine classifier (SVC)
