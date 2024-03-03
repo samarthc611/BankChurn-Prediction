@@ -205,6 +205,25 @@ X_test_scaled = scaler.transform(X_test)
 # ## K nearest Classifier
 
 
+# Initialize the KNN model
+knn=KNeighborsClassifier(n_neighbors=13)
+
+# Train the model
+knn.fit(X_train_scaled, y_train)
+
+# Predict on the test set
+y_pred_knn=knn.predict(X_test_scaled)
+
+# Evaluate the model
+accuracy_knn=accuracy_score(y_test, y_pred_knn)
+print("KNN Accuracy: {:.2f}%".format(accuracy_knn * 100))
+
+# Classification report
+print("\nKNN Classification Report:\n", classification_report(y_test, y_pred_knn))
+
+# Confusion matrix
+cm_knn = confusion_matrix(y_test, y_pred_knn)
+print("\nKNN Confusion Matrix:\n", cm_knn)
 
 
 
@@ -224,21 +243,19 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 
 #split the data into testing and training sets
-# X_train, X_test, y_train, y_test = train_test_split(
-#     X, Y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
 
 #inbuilt function to train logistic regression model
-Log_reg=LogisticRegression()
-Log_reg.fit(X_train_scaled, y_train)
+model=LogisticRegression()
+model.fit(X_train, y_train)
 
 #accuracy 
-y_pred = Log_reg.predict(X_test_scaled)
-print("confusion_matrix\n", confusion_matrix(y_test, y_pred),"\n\n")
+y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy: {:.2f}%".format(accuracy * 100))
 #classification report
-print("\nClassification Report:\n", classification_report(y_test,y_pred))
-
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 
 # ## Support Vector mechine classifier (SVC)
