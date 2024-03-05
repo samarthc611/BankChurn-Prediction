@@ -183,7 +183,7 @@ df.drop(columns=['Gender'], inplace=True)
 df
 
 
-X = df.drop(columns=['RowNumber', 'Surname','Exited'], axis = 1)
+X = df.drop(columns=['RowNumber', 'Surname','Exited','CustomerId'], axis = 1)
 # X = df.drop(columns=['RowNumber', 'CustomerId', 'Surname','Geography','Gender','Exited','Age Group'], axis = 1)
 # X.head(5)
 Y = df["Exited"]
@@ -205,7 +205,24 @@ X_test_scaled = scaler.transform(X_test)
 # ## K nearest Classifier
 
 
+knn=KNeighborsClassifier(n_neighbors=13)
 
+# Train the model
+knn.fit(X_train_scaled, y_train)
+
+# Predict on the test set
+y_pred_knn=knn.predict(X_test_scaled)
+
+# Evaluate the model
+accuracy_knn=accuracy_score(y_test, y_pred_knn)
+print("KNN Accuracy: {:.2f}%".format(accuracy_knn * 100))
+
+# Classification report
+print("\nKNN Classification Report:\n", classification_report(y_test, y_pred_knn))
+
+# Confusion matrix
+cm_knn = confusion_matrix(y_test, y_pred_knn)
+print("\nKNN Confusion Matrix:\n", cm_knn)
 
 
 
@@ -219,10 +236,25 @@ X_test_scaled = scaler.transform(X_test)
 
 # ## Logistic Regression
 
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
+#split the data into testing and training sets
+# X_train, X_test, y_train, y_test = train_test_split(
+#     X, Y, test_size=0.2, random_state=42)
 
+#inbuilt function to train logistic regression model
+Log_reg=LogisticRegression()
+Log_reg.fit(X_train_scaled, y_train)
 
-
+#accuracy 
+y_pred = Log_reg.predict(X_test_scaled)
+print("confusion_matrix\n", confusion_matrix(y_test, y_pred),"\n\n")
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy: {:.2f}%".format(accuracy * 100))
+#classification report
+print("\nClassification Report:\n", classification_report(y_test,y_pred))
 
 
 # ## Support Vector mechine classifier (SVC)
@@ -253,9 +285,9 @@ import pickle
 models = {
     'Knn': knn,
     'LR': Log_reg,
-    'svc': svc,
-    'DTC':dtc,
-    'rfc':rfc
+    # 'svc': svc,
+    # 'DTC':dtc,
+    # 'rfc':rfc
 }
 
 # Dump the dictionary containing all models
@@ -268,11 +300,10 @@ with open('model.pkl', 'rb') as file:
 
 # Access each model by its key
 logistic_regression_model = loaded_models['LR']
-random_forest_model = loaded_models['rfc']
-svm_model = loaded_models['svc']
+# random_forest_model = loaded_models['rfc']
+# svm_model = loaded_models['svc']
 K_Nearest = loaded_models['Knn']
-Decision_tree = loaded_models['DTC']
-
+# Decision_tree = loaded_models['DTC']
 
 
 
