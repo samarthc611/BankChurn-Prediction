@@ -307,22 +307,24 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import precision_score
 
 # Create a Decision Tree Classifier
-decision_tree = DecisionTreeClassifier()
+dtc = DecisionTreeClassifier()
 
 #Train the model
-decision_tree.fit(X_train, y_train)
+dtc.fit(X_train_scaled, y_train)
 
 # Use the trained model to make predictions on the test set
-y_pred_dt = decision_tree.predict(X_test)
+y_pred_dt = dtc.predict(X_test_scaled)
 
 #Calculate Accuracy Score
 accuracy_score(y_test,y_pred_dt)
 
-#Calculate Precision Score
-precision_score(y_test,y_pred_dt)
-
 #classification report
 print("\nClassification Report:\n", classification_report(y_test,y_pred_dt))
+
+# Confusion matrix
+cm_dtc = confusion_matrix(y_test, y_pred_dt)
+print("\nDecision Tree Classifier Confusion Matrix:\n", cm_dtc)
+
 
 
 
