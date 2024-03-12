@@ -316,7 +316,8 @@ dtc.fit(X_train_scaled, y_train)
 y_pred_dt = dtc.predict(X_test_scaled)
 
 #Calculate Accuracy Score
-accuracy_score(y_test,y_pred_dt)
+accuracy_dtc=accuracy_score(y_test,y_pred_dt)
+print("Decision Tree Classifier Accuracy: {:.2f}%".format(accuracy_dtc * 100))
 
 #classification report
 print("\nClassification Report:\n", classification_report(y_test,y_pred_dt))
