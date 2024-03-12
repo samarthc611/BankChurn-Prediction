@@ -205,9 +205,9 @@ X_test_scaled = scaler.transform(X_test)
 # ## K nearest Classifier
 
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
 knn=KNeighborsClassifier(n_neighbors=13)
-=======
+# =======
 # Initialize the KNN model
 knn=KNeighborsClassifier(n_neighbors=13)
 
@@ -227,7 +227,7 @@ print("\nKNN Classification Report:\n", classification_report(y_test, y_pred_knn
 # Confusion matrix
 cm_knn = confusion_matrix(y_test, y_pred_knn)
 print("\nKNN Confusion Matrix:\n", cm_knn)
->>>>>>> 00a11680cb3024df3bb81b243cadef695b2cab55
+# >>>>>>> 00a11680cb3024df3bb81b243cadef695b2cab55
 
 # Train the model
 knn.fit(X_train_scaled, y_train)
@@ -263,7 +263,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 
 #split the data into testing and training sets
-<<<<<<< HEAD
+# <<<<<<< HEAD
 # X_train, X_test, y_train, y_test = train_test_split(
 #     X, Y, test_size=0.2, random_state=42)
 
@@ -278,9 +278,8 @@ accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy: {:.2f}%".format(accuracy * 100))
 #classification report
 print("\nClassification Report:\n", classification_report(y_test,y_pred))
-=======
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
+# =======
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 #inbuilt function to train logistic regression model
 model=LogisticRegression()
@@ -291,8 +290,8 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy: {:.2f}%".format(accuracy * 100))
 #classification report
-print("\nClassification Report:\n", classification_report(y_test, y_pred))
->>>>>>> 00a11680cb3024df3bb81b243cadef695b2cab55
+print("\nClassification Report:\n", classification_report(y_test,y_pred))
+# >>>>>>> 00a11680cb3024df3bb81b243cadef695b2cab55
 
 
 # ## Support Vector mechine classifier (SVC)
@@ -303,36 +302,25 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 
 # ## Decession Tree Classifier 
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import precision_score
 
-# Create a Decision Tree Classifier
-dtc = DecisionTreeClassifier()
 
-#Train the model
-dtc.fit(X_train_scaled, y_train)
 
-# Use the trained model to make predictions on the test set
-y_pred_dt = dtc.predict(X_test_scaled)
 
-#Calculate Accuracy Score
-accuracy_dtc=accuracy_score(y_test,y_pred_dt)
-print("Decision Tree Classifier Accuracy: {:.2f}%".format(accuracy_dtc * 100))
-
-#classification report
-print("\nClassification Report:\n", classification_report(y_test,y_pred_dt))
-
-# Confusion matrix
-cm_dtc = confusion_matrix(y_test, y_pred_dt)
-print("\nDecision Tree Classifier Confusion Matrix:\n", cm_dtc)
 
 
 
 
 # ## Random Forest Classifier
 
+rfc = RandomForestClassifier(n_estimators=250)
+rfc.fit(X_train_scaled, y_train)
 
 
+predict = rfc.predict(X_test_scaled)
+
+print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
+print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
+print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
 import pickle
