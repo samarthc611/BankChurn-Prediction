@@ -327,7 +327,7 @@ import pickle
 models = {
     'Knn': knn,
     'LR': Log_reg,
-    # 'svc': svc,
+    'svc': svc,
     'DTC': dtc,
     'rfc':rfc
 }
@@ -343,7 +343,7 @@ with open('model.pkl', 'rb') as file:
 # Access each model by its key
 logistic_regression_model = loaded_models['LR']
 random_forest_model = loaded_models['rfc']
-# svm_model = loaded_models['svc']
+svm_model = loaded_models['svc']
 K_Nearest = loaded_models['Knn']
 Decision_tree = loaded_models['DTC']
 
