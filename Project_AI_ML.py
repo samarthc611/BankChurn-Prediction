@@ -261,11 +261,11 @@ print("\nClassification Report:\n", classification_report(y_test,y_pred))
 from sklearn import svm
 
 #initialise SVM
-Svm= svm.SVC(kernel='linear')
+Svc= svm.SVC(kernel='linear')
 #fit data
-Svm=Svm.fit(X_train_scaled, y_train)
+Svc = Svc.fit(X_train_scaled, y_train)
 #predict test data
-pred = Svm.predict(X_test_scaled)
+pred = Svc.predict(X_test_scaled)
 print("confusion_matrix\n", confusion_matrix(y_test, pred),"\n\n")
 accuracy = accuracy_score(y_test, pred)
 print("Accuracy: {:.2f}%".format(accuracy * 100))
