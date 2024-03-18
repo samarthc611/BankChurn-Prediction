@@ -258,20 +258,19 @@ print("\nClassification Report:\n", classification_report(y_test,y_pred))
 
 
 # ## Support Vector mechine classifier (SVC)
-from sklearn import svm
 
-#initialise SVM
-Svc= svm.SVC(kernel='linear')
+#initialise SVC
+svc = SVC()
+
 #fit data
-Svc = Svc.fit(X_train_scaled, y_train)
+svc = svc.fit(X_train_scaled, y_train)
 #predict test data
-pred = Svc.predict(X_test_scaled)
+pred = svc.predict(X_test_scaled)
 print("confusion_matrix\n", confusion_matrix(y_test, pred),"\n\n")
 accuracy = accuracy_score(y_test, pred)
 print("Accuracy: {:.2f}%".format(accuracy * 100))
 #classification report
 print("\nClassification Report:\n", classification_report(y_test,pred))
-
 
 
 # ## Decession Tree Classifier 
