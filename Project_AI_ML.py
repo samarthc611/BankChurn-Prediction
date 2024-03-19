@@ -259,9 +259,18 @@ print("\nClassification Report:\n", classification_report(y_test,y_pred))
 
 # ## Support Vector mechine classifier (SVC)
 
+#initialise SVC
+svc = SVC()
 
-
-
+#fit data
+svc = svc.fit(X_train_scaled, y_train)
+#predict test data
+pred = svc.predict(X_test_scaled)
+print("confusion_matrix\n", confusion_matrix(y_test, pred),"\n\n")
+accuracy = accuracy_score(y_test, pred)
+print("Accuracy: {:.2f}%".format(accuracy * 100))
+#classification report
+print("\nClassification Report:\n", classification_report(y_test,pred))
 
 
 # ## Decession Tree Classifier 
@@ -318,7 +327,7 @@ import pickle
 models = {
     'Knn': knn,
     'LR': Log_reg,
-    # 'svc': svc,
+    'svc': svc,
     'DTC': dtc,
     'rfc':rfc
 }
@@ -334,7 +343,7 @@ with open('model.pkl', 'rb') as file:
 # Access each model by its key
 logistic_regression_model = loaded_models['LR']
 random_forest_model = loaded_models['rfc']
-# svm_model = loaded_models['svc']
+svm_model = loaded_models['svc']
 K_Nearest = loaded_models['Knn']
 Decision_tree = loaded_models['DTC']
 
