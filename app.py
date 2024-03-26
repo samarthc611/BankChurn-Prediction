@@ -33,14 +33,21 @@ def predict():
         algo = 'DTC'
     if int_features[-1] == 5:
         algo = 'rfc'
-    
+    if int_features[-1] == 6:
+        algo = 'nn'
+   
     int_features.pop(11)
     int_features.pop(0)
 
 
     # int_features.insert(10, int_features.pop(9))
     # int_features.insert(9, 1)
-    final = [np.array(int_features)]
+    # final = [np.array(int_features)]
+    if algo == 'nn':
+        final = np.expand_dims(int_features, axis=0)
+    else:
+        final = [np.array(int_features)]
+        
     print(int_features)
     print(final)
     prediction = loaded_models[algo].predict(final)

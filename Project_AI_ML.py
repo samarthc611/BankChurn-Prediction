@@ -36,6 +36,29 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report, classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import pickle
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, classification_report, confusion_matrix
+
+
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout 
+from tensorflow.keras.callbacks import EarlyStopping
+# %matplotlib inline
 
 # get_ipython().run_line_magic('matplotlib', 'inline')
 
@@ -320,6 +343,58 @@ print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
 print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 
+# Neueal network***********
+
+X = scaler.fit_transform(X)
+
+X_train, X_r, y_train, y_r = train_test_split(X, Y, test_size=0.30, random_state=7)
+X_CV, X_test, y_CV, y_test = train_test_split(X_r, y_r, test_size=0.50, random_state=7)
+
+# Using Dropout
+
+
+def classification_model_D(nLayer, nodeList, nCol):
+    # create model
+    model = Sequential()
+    model.add(Dense(nodeList[0], activation='relu', input_shape=(nCol,)))
+    
+    for i in range(1, nLayer-1):
+        model.add(Dense(nodeList[i], activation='relu'))
+        model.add(Dropout(0.5))
+    model.add(Dense(nodeList[-1], activation="sigmoid"))
+    
+    # compile model
+#     optimizer = keras.optimizers.Adam(lr=0.001)
+
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+
+nodeList = [10, 15, 10, 1]
+
+
+
+nLayer = len(nodeList)
+nCol = X_train.shape[1]
+
+nn = classification_model_D(nLayer=nLayer, nodeList=nodeList, nCol=nCol)
+
+nn.fit(x=X_train, y=y_train, epochs=250, validation_data=(X_CV, y_CV))
+
+
+# history = pd.DataFrame(nn.history.history)
+# history.drop(["accuracy", "val_accuracy"], inplace=True, axis=1)
+# history.head()
+
+# history.plot()
+
+
+predict = (nn.predict(X_test) > 0.5).astype(int)
+
+
+
+print("confusion_matrix\n", confusion_matrix(y_test, predict),"\n\n")
+print("classification_report\n\n",classification_report(y_test, predict),"\n\n")
+print("accuracy_score = ", accuracy_score(y_test, predict), "\n")
 
 import pickle
 
@@ -329,7 +404,8 @@ models = {
     'LR': Log_reg,
     'svc': svc,
     'DTC': dtc,
-    'rfc':rfc
+    'rfc':rfc,
+    'nn':nn
 }
 
 # Dump the dictionary containing all models
@@ -346,7 +422,7 @@ random_forest_model = loaded_models['rfc']
 svm_model = loaded_models['svc']
 K_Nearest = loaded_models['Knn']
 Decision_tree = loaded_models['DTC']
-
+Neural_network = loaded_models['nn']
 
 
 
